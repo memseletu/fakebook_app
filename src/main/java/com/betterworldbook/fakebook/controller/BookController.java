@@ -23,18 +23,30 @@ public class BookController {
     }
 
     @PostMapping("/books/{categoryId}/books")
-    public void createBook(@PathVariable (value = "categoryId") Long categoryId, @RequestBody Books book) {
+    public void createBook(@PathVariable Long categoryId, @RequestBody Books book) {
         bookService.createBook(categoryId,book);
     }
 
-    @PutMapping("/books/{categoryId}/books")
-    public void updateBook(@PathVariable (value =  "categoryId") Long categoryId, @RequestBody Books books){
-       bookService.updateBooks(categoryId,books);
-    }
+//    @PutMapping("/books/{categoryId}/books")
+//    public void updateBook(@PathVariable  Long categoryId,  @RequestBody Books books){
+//       bookService.createBook( categoryId, books);
+    //}
+//    @PutMapping("/books/{categoryId}/books")
+//    public void updateBook(@PathVariable Long categoryId, @RequestBody Books books){
+//        bookService.createBook(categoryId, books);
+//    }
+@PutMapping("/books/{categoryId}/books")
+public void updateBook (@PathVariable Long categoryId, @RequestBody Books book) {
+    bookService.createBook(categoryId,book);
+}
 
     @DeleteMapping("/books/{bookId}")
     public void deleteBookById(@PathVariable Long bookId) {
         bookService.deleteBookByID(bookId);
+    }
+    @GetMapping("/books/search")
+    public ResponseEntity<?> searchBook(@RequestParam("Query") String query){
+        return null;
     }
 
 

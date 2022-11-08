@@ -8,9 +8,17 @@ import javax.persistence.Id;
 @Entity
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -18,22 +26,5 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getid() {
-        return id;
-    }
-
-    public void setid(Long id) {
-        this.id = id;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
     }
 }

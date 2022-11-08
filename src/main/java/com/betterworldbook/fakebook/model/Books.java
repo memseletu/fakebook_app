@@ -6,10 +6,9 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "books")
 public class Books{
  @Id
- @GeneratedValue(strategy = GenerationType.AUTO)
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
    private  Long id;
    private String name;
     private  String sku;
@@ -18,12 +17,14 @@ public class Books{
     private  Integer inStock;
     private String image;
 
-    @ManyToOne
+ public Books() {
+ }
+
+ @ManyToOne
     @JoinColumn(name = "category_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Category category;
 
- public Books() {}
 
  public Books(Long id) {
   this.id = id;

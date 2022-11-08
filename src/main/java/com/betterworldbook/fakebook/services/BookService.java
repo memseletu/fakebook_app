@@ -1,8 +1,11 @@
 package com.betterworldbook.fakebook.services;
 
 import com.betterworldbook.fakebook.model.Books;
+import com.betterworldbook.fakebook.model.Category;
 import com.betterworldbook.fakebook.repository.BookRepository;
 import com.betterworldbook.fakebook.repository.CategoryRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,6 +20,8 @@ import java.util.Optional;
 
 @Service
 public class BookService {
+
+    Logger log = LoggerFactory.getLogger(BookService.class);
 
     @Autowired
    private BookRepository bookRepository;
@@ -35,21 +40,32 @@ public class BookService {
     }
 
     public void createBook( Long categoryId, Books books) {
-       categoryRepository.findById(categoryId).map(category -> {
-           books.setCategory(category);
-            return bookRepository.save(books);
-        });
+        Category category = categoryRepository.findById(categoryId).orElse(null);
+        books.setCategory(category);
+        bookRepository.save(books);
     }
-    public void updateBooks(Long categoryId, Books books){
-        categoryRepository.findById(categoryId).map(category -> {
-            books.setCategory(category);
-            return bookRepository.save(books);
-        });
-    }
+
+//    public void createBook( Long categoryId, Books books) {
+//        categoryRepository.findById(categoryId).map(category -> {
+//            books.setCategory(category);
+//            return bookRepository.save(books);
+//        });
+//    }
+//    public void updateBooks(Books books, Long categoryId){
+//        categoryRepository.findById(categoryId).map(category -> {
+//            books.setCategory(category);
+////            Long bookGetId = books.getId();
+////            log.info(bookGetId.toString());
+//            return bookRepository.save(books);
+//        });
+//    }
 
     public void deleteBookByID(Long id) {
         bookRepository.deleteById(id);
     }
+//    public ResponseEntity<?> searchBook(String search){
+//      Books p = bookRepository.book(search)
+//    }
 }
 
 
