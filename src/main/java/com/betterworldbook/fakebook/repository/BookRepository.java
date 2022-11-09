@@ -1,13 +1,13 @@
 package com.betterworldbook.fakebook.repository;
 
-import com.betterworldbook.fakebook.model.Books;
+import com.betterworldbook.fakebook.model.Book;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BookRepository extends CrudRepository<Books, Long> {
-    @Query(value = "select * from books where name like %?%1",nativeQuery = true)
-    public Iterable<Books> book( String searchBook);
+public interface BookRepository extends CrudRepository<Book, Long> {
+    @Query(value = "select * from book where name like CONCAT('%', :query, '%') ",nativeQuery = true)
+    Iterable<Book> searchForBookByName(String query);
 
 }

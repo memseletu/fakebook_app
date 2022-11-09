@@ -1,6 +1,6 @@
 package com.betterworldbook.fakebook.controller;
 
-import com.betterworldbook.fakebook.model.Books;
+import com.betterworldbook.fakebook.model.Book;
 import com.betterworldbook.fakebook.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +18,12 @@ public class BookController {
     }
 
     @GetMapping("/books")
-    public Iterable<Books> getAllBooks() {
+    public Iterable<Book> getAllBooks() {
         return bookService.getAllBooks() ;
     }
 
     @PostMapping("/books/{categoryId}/books")
-    public void createBook(@PathVariable Long categoryId, @RequestBody Books book) {
+    public void createBook(@PathVariable Long categoryId, @RequestBody Book book) {
         bookService.createBook(categoryId,book);
     }
 
@@ -36,7 +36,7 @@ public class BookController {
 //        bookService.createBook(categoryId, books);
 //    }
 @PutMapping("/books/{categoryId}/books")
-public void updateBook (@PathVariable Long categoryId, @RequestBody Books book) {
+public void updateBook (@PathVariable Long categoryId, @RequestBody Book book) {
     bookService.createBook(categoryId,book);
 }
 
@@ -44,10 +44,11 @@ public void updateBook (@PathVariable Long categoryId, @RequestBody Books book) 
     public void deleteBookById(@PathVariable Long bookId) {
         bookService.deleteBookByID(bookId);
     }
-    @GetMapping("/books/search")
-    public ResponseEntity<?> searchBook(@RequestParam("Query") String query){
-        return null;
+    @GetMapping("/search")
+    public Iterable<Book> searchForBookByName(@RequestParam("query") String search){
+        return bookService.searchForBookByName(search);
+    }
     }
 
 
-}
+
